@@ -69,14 +69,14 @@ function updateToolTip(chosenXAxis, circlesGroup) {
       var label = "Danceability:";
     }
     else {
-      var label = "Tempo:";
+      var label = "Valence:";
     }
 
   var toolTip = d3.tip()
     .attr("class", "tooltip")
     .offset([80, -60])
     .html(function(d) {
-      return (`${d.name}<br>${d.artist}<br>${label} ${d[chosenXAxis]}`);
+      return (`${d.name}<br>${d.artists}<br>${label} ${d[chosenXAxis]}`);
     });
 
   circlesGroup.call(toolTip);
@@ -104,7 +104,8 @@ d3.csv("top2018.csv", function(err, songData) {
     data.energy = +data.energy;
     data.key = +data.key;
     data.loudness = +data.loudness
-    data.tempo = +data.tempo;
+    data.tempo = +data.tempo
+    data.valence = +data.valence;
   });
 
 
@@ -153,12 +154,12 @@ d3.csv("top2018.csv", function(err, songData) {
     .classed("active", true)
     .text("Danceability");
 
-  var tempoLabel = labelsGroup.append("text")
+  var valenceLabel = labelsGroup.append("text")
     .attr("x", 0)
     .attr("y", 40)
     .attr("value", "tempo") // value to grab for event listener
     .classed("inactive", true)
-    .text("Tempo");
+    .text("Valence");
 
   // append y axis
   chartGroup.append("text")
@@ -202,7 +203,7 @@ d3.csv("top2018.csv", function(err, songData) {
           danceabilityLabel
             .classed("active", true)
             .classed("inactive", false);
-          tempoLabel
+          valenceLabel
             .classed("active", false)
             .classed("inactive", true);
         }
@@ -210,7 +211,7 @@ d3.csv("top2018.csv", function(err, songData) {
           danceabilityLabel
             .classed("active", false)
             .classed("inactive", true);
-          tempoLabel
+          valenceLabel
             .classed("active", true)
             .classed("inactive", false);
         }
